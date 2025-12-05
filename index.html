@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Videoclip scurt</title>
+</head>
+<body>
+  <h2>Videoclip scurt</h2>
+
+  <!-- Videoclip -->
+  <video id="myVideo" width="480" controls>
+    <source src="clip.mp4" type="video/mp4">
+    Browserul tău nu suportă video HTML5.
+  </video>
+
+  <!-- Control viteză -->
+  <label for="speed">Viteză redare:</label>
+  <select id="speed">
+    <option value="0.25">0.25x</option>
+    <option value="0.5">0.5x</option>
+    <option value="1" selected>Normal</option>
+    <option value="2">2x</option>
+    <option value="4">4x</option>
+  </select>
+
+  <!-- Buton aprecieri -->
+  <button id="likeBtn">👍 Apreciază</button>
+  <span id="likeCount">0</span> aprecieri
+
+  <!-- Comentarii -->
+  <h3>Comentarii</h3>
+  <form id="commentForm">
+    <input type="text" id="commentInput" placeholder="Scrie un comentariu..." required>
+    <button type="submit">Trimite</button>
+  </form>
+  <ul id="comments"></ul>
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const speed = document.getElementById('speed');
+    const likeBtn = document.getElementById('likeBtn');
+    const likeCount = document.getElementById('likeCount');
+    const commentForm = document.getElementById('commentForm');
+    const comments = document.getElementById('comments');
+
+    // Schimbă viteza
+    speed.addEventListener('change', () => {
+      video.playbackRate = parseFloat(speed.value);
+    });
+
+    // Aprecieri
+    let likes = 0;
+    likeBtn.addEventListener('click', () => {
+      likes++;
+      likeCount.textContent = likes;
+    });
+
+    // Comentarii
+    commentForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = document.getElementById('commentInput').value;
+      const li = document.createElement('li');
+      li.textContent = text;
+      comments.appendChild(li);
+      commentForm.reset();
+    });
+  </script>
+</body>
+</html>
